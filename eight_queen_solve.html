@@ -1,0 +1,51 @@
+<html>
+
+</html>
+<script>
+  const BOARD_SIZE = 8;
+  let queens = new Array(BOARD_SIZE);
+  let num = 1
+
+  function solveQueensProblem(row) {
+    if (row === BOARD_SIZE) {
+      console.log('sloution ' + num);
+      printSolution();
+      num += 1;
+    } else {
+      for (let i = 0; i < BOARD_SIZE; i++) {
+        queens[row] = i;
+        if (isValid(row)) {
+          solveQueensProblem(row + 1);
+        }
+      }
+    }
+  }
+
+  function isValid(row) {
+    for (let i = 0; i < row; i++) {
+      if (queens[i] === queens[row]) {
+        return false;
+      } else if (Math.abs(queens[i] - queens[row]) === row - i) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function printSolution() {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+      let line = '';
+      for (let j = 0; j < BOARD_SIZE; j++) {
+        if (queens[i] === j) {
+          line += 'Q';
+        } else {
+          line += '.';
+        }
+      }
+      console.log(line);
+    }
+    console.log();
+  }
+
+  solveQueensProblem(0);
+</Script>
